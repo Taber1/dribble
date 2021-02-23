@@ -200,7 +200,97 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(icon: Icon(Icons.mail_outline_outlined), onPressed: () {})
         ],
       ),
-      body: SingleChildScrollView(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 7,
+            ),
+            Container(
+              height: 100,
+              child: ListView(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                children: [
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          height: 70,
+                          width: 70,
+                          decoration: BoxDecoration(
+                            border:
+                                Border.all(color: Colors.grey[400], width: 2.5),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Icon(
+                            Icons.add,
+                            size: 30,
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                        Text("My Story")
+                      ],
+                    ),
+                  ),
+                  PeopleBox(),
+                  PeopleBox(),
+                  PeopleBox(),
+                  PeopleBox(),
+                  PeopleBox(),
+                  PeopleBox(),
+                  PeopleBox(),
+                  PeopleBox(),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PeopleBox extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 5),
+      child: Column(
+        children: [
+          Container(
+            height: 70,
+            width: 70,
+            padding: EdgeInsets.all(2),
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.purple, Colors.pink, Colors.orange]),
+                borderRadius: BorderRadius.circular(30)),
+            child: Container(
+                padding: EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.white,
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                              'https://cdn.pixabay.com/photo/2021/01/30/15/14/akita-5964180_1280.jpg'))),
+                )),
+          ),
+          Text("Dobby")
+        ],
+      ),
     );
   }
 }
