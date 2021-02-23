@@ -15,11 +15,11 @@ class PostScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios_outlined),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: [Text("...")],
+        actions: [IconButton(icon: Icon(Icons.more_horiz), onPressed: () {})],
       ),
       body: Container(
         padding: EdgeInsets.all(10),
-        height: MediaQuery.of(context).size.height * 0.6,
+        height: MediaQuery.of(context).size.height * 0.65,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
