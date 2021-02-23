@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:dribble/PostScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -22,6 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
   bool horVal = false;
   bool swiftVal = false;
   bool darkTheme = false;
+
+  fav() {
+    return Icon(
+      Icons.favorite_outline,
+      size: 50,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -253,12 +264,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   physics: ScrollPhysics(),
                   itemCount: 5,
                   itemBuilder: (context, index) {
-                    return Align(
-                      heightFactor: 0.9,
-                      alignment: Alignment.topCenter,
-                      child: PostsBox(
-                        imgUrl:
-                            "https://cdn.pixabay.com/photo/2021/01/27/07/19/book-5953965__340.jpg",
+                    return GestureDetector(
+                      onDoubleTap: () => showToast(context: context),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PostScreen(
+                                    imgUrl:
+                                        "https://cdn.pixabay.com/photo/2021/01/27/07/19/book-5953965__340.jpg",
+                                  ))),
+                      child: Align(
+                        heightFactor: 0.9,
+                        alignment: Alignment.topCenter,
+                        child: PostsBox(
+                          imgUrl:
+                              "https://cdn.pixabay.com/photo/2021/01/27/07/19/book-5953965__340.jpg",
+                        ),
                       ),
                     );
                   },
@@ -315,6 +336,26 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+    );
+  }
+}
+
+void showToast({
+  @required BuildContext context,
+}) {
+  OverlayEntry overlayEntry;
+
+  overlayEntry = OverlayEntry(builder: (context) => Favourite());
+  Overlay.of(context).insert(overlayEntry);
+  Timer(Duration(seconds: 1), () => overlayEntry.remove());
+}
+
+class Favourite extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      Icons.favorite,
+      size: 50,
     );
   }
 }
