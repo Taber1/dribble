@@ -248,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   PeopleBox(),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -290,6 +290,21 @@ class PeopleBox extends StatelessWidget {
           ),
           Text("Dobby")
         ],
+      ),
+    );
+  }
+}
+
+class PostsBox extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 5, left: 5),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.6,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30), color: Colors.red),
       ),
     );
   }
