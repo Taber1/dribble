@@ -9,10 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.grey,
-        ),
-        home: HomeScreen());
+        theme: ThemeData(primarySwatch: Colors.grey), home: HomeScreen());
   }
 }
 
@@ -200,72 +197,123 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(icon: Icon(Icons.mail_outline_outlined), onPressed: () {})
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 7,
-            ),
-            Container(
-              height: 100,
-              child: ListView(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                children: [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 5.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          height: 70,
-                          width: 70,
-                          decoration: BoxDecoration(
-                            border:
-                                Border.all(color: Colors.grey[400], width: 2.5),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Icon(
-                            Icons.add,
-                            size: 30,
-                            color: Colors.grey[400],
-                          ),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 7,
+                ),
+                Container(
+                  height: 100,
+                  child: ListView(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              height: 70,
+                              width: 70,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.grey[400], width: 2.5),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Icon(
+                                Icons.add,
+                                size: 30,
+                                color: Colors.grey[400],
+                              ),
+                            ),
+                            Text("My Story")
+                          ],
                         ),
-                        Text("My Story")
-                      ],
-                    ),
+                      ),
+                      PeopleBox(),
+                      PeopleBox(),
+                      PeopleBox(),
+                      PeopleBox(),
+                      PeopleBox(),
+                      PeopleBox(),
+                      PeopleBox(),
+                      PeopleBox(),
+                    ],
                   ),
-                  PeopleBox(),
-                  PeopleBox(),
-                  PeopleBox(),
-                  PeopleBox(),
-                  PeopleBox(),
-                  PeopleBox(),
-                  PeopleBox(),
-                  PeopleBox(),
-                ],
-              ),
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Align(
+                      heightFactor: 0.9,
+                      alignment: Alignment.topCenter,
+                      child: PostsBox(
+                        imgUrl:
+                            "https://cdn.pixabay.com/photo/2021/01/27/07/19/book-5953965__340.jpg",
+                      ),
+                    );
+                  },
+                )
+              ],
             ),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: ScrollPhysics(),
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return Align(
-                  heightFactor: 0.9,
-                  alignment: Alignment.topCenter,
-                  child: PostsBox(
-                    imgUrl:
-                        "https://cdn.pixabay.com/photo/2021/01/27/07/19/book-5953965__340.jpg",
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
+                child: Container(
+                  height: 60,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(
+                        Icons.home,
+                        size: 35,
+                        color: Colors.white,
+                      ),
+                      Icon(
+                        Icons.search,
+                        size: 35,
+                        color: Colors.white,
+                      ),
+                      Icon(
+                        Icons.add_box_outlined,
+                        size: 35,
+                        color: Colors.white,
+                      ),
+                      Icon(
+                        Icons.favorite,
+                        size: 35,
+                        color: Colors.white,
+                      ),
+                      Icon(
+                        Icons.person,
+                        size: 35,
+                        color: Colors.white,
+                      )
+                    ],
                   ),
-                );
-              },
-            )
-          ],
-        ),
+                )),
+          ),
+        ],
       ),
     );
   }
@@ -326,31 +374,59 @@ class PostsBox extends StatelessWidget {
             image: DecorationImage(
                 fit: BoxFit.cover, image: NetworkImage("$imgUrl"))),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: 5,
-                ),
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text("Person's Name")
-              ],
+            Padding(
+              padding: const EdgeInsets.only(left: 5.0),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text("Person's Name")
+                ],
+              ),
             ),
-            Row(
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.favorite),
-                    Icon(Icons.sms_rounded),
-                    Icon(FontAwesomeIcons.paperPlane)
-                  ],
-                )
-              ],
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50.0, left: 10, right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: 80,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(40)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [Icon(Icons.favorite), Text(" 1.9K")],
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Row(
+                        children: [Icon(Icons.sms_rounded), Text(" 3.4K")],
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        FontAwesomeIcons.paperPlane,
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                  Icon(FontAwesomeIcons.bookmark)
+                ],
+              ),
             )
           ],
         ),
