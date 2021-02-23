@@ -1,5 +1,5 @@
-import 'package:custom_switch/custom_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -249,6 +249,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return Align(
+                  heightFactor: 0.9,
+                  alignment: Alignment.topCenter,
+                  child: PostsBox(
+                    imgUrl:
+                        "https://cdn.pixabay.com/photo/2021/01/27/07/19/book-5953965__340.jpg",
+                  ),
+                );
+              },
+            )
           ],
         ),
       ),
@@ -296,15 +311,49 @@ class PeopleBox extends StatelessWidget {
 }
 
 class PostsBox extends StatelessWidget {
+  String imgUrl;
+  PostsBox({this.imgUrl});
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 5, left: 5),
+      padding: const EdgeInsets.only(left: 5.0, right: 5),
       child: Container(
+        padding: EdgeInsets.all(10),
         height: MediaQuery.of(context).size.height * 0.6,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30), color: Colors.red),
+            borderRadius: BorderRadius.circular(30),
+            image: DecorationImage(
+                fit: BoxFit.cover, image: NetworkImage("$imgUrl"))),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  width: 5,
+                ),
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Text("Person's Name")
+              ],
+            ),
+            Row(
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.favorite),
+                    Icon(Icons.sms_rounded),
+                    Icon(FontAwesomeIcons.paperPlane)
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
