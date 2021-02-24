@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PostScreen extends StatefulWidget {
@@ -34,135 +35,154 @@ class _PostScreenState extends State<PostScreen> {
         child: Stack(
           children: [
             Container(
-              padding: EdgeInsets.all(10),
+              // padding: EdgeInsets.all(10),
               height: MediaQuery.of(context).size.height * 0.65,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage("${widget.imgUrl}"))),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                borderRadius: BorderRadius.circular(30),
+                // image: DecorationImage(
+                //     fit: BoxFit.cover,
+                //     image: NetworkImage("${widget.imgUrl}"))
+              ),
+              child: Stack(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5.0),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              'https://cdn.pixabay.com/photo/2021/01/30/15/14/akita-5964180_1280.jpg'),
+                  // SizedBox(),
+                  Swiper(
+                      itemCount: 1,
+                      itemBuilder: (context, index) => Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage("${widget.imgUrl}"))),
+                          )),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0, top: 10),
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  'https://cdn.pixabay.com/photo/2021/01/30/15/14/akita-5964180_1280.jpg'),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text("Person's Name")
+                          ],
                         ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text("Person's Name")
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: 10.0, left: 10, right: 10),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 10.0, left: 10, right: 10),
+                        child: Column(
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: 80,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          borderRadius:
+                                              BorderRadius.circular(40)),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.favorite),
+                                          Text(" 1.9K")
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.sms_rounded),
+                                        Text(" 3.4K")
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Icon(
+                                      FontAwesomeIcons.paperPlane,
+                                      size: 20,
+                                    ),
+                                  ],
+                                ),
+                                Icon(FontAwesomeIcons.bookmark)
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
                                 Container(
-                                  width: 80,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(40)),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                  width: 100,
+                                  child: Stack(
                                     children: [
-                                      Icon(Icons.favorite),
-                                      Text(" 1.9K")
+                                      Positioned(
+                                        left: 40,
+                                        child: CircleAvatar(
+                                            backgroundColor: Colors.white,
+                                            child: CircleAvatar(
+                                              radius: 18,
+                                              backgroundImage: NetworkImage(
+                                                  'https://cdn.pixabay.com/photo/2021/01/30/15/14/akita-5964180_1280.jpg'),
+                                            )),
+                                      ),
+                                      Positioned(
+                                        left: 20,
+                                        child: CircleAvatar(
+                                            backgroundColor: Colors.white,
+                                            child: CircleAvatar(
+                                              radius: 18,
+                                              backgroundImage: NetworkImage(
+                                                  'https://cdn.pixabay.com/photo/2021/01/30/15/14/akita-5964180_1280.jpg'),
+                                            )),
+                                      ),
+                                      CircleAvatar(
+                                          backgroundColor: Colors.white,
+                                          child: CircleAvatar(
+                                            radius: 18,
+                                            backgroundImage: NetworkImage(
+                                                'https://cdn.pixabay.com/photo/2021/01/30/15/14/akita-5964180_1280.jpg'),
+                                          )),
                                     ],
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 10,
+                                Flexible(
+                                  child: Text(
+                                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: true),
                                 ),
-                                Row(
-                                  children: [
-                                    Icon(Icons.sms_rounded),
-                                    Text(" 3.4K")
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Icon(
-                                  FontAwesomeIcons.paperPlane,
-                                  size: 20,
-                                ),
+                                FlatButton(
+                                    onPressed: () {},
+                                    color: Colors.white,
+                                    minWidth: 50,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: Text("More"))
                               ],
-                            ),
-                            Icon(FontAwesomeIcons.bookmark)
+                            )
                           ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 100,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    left: 40,
-                                    child: CircleAvatar(
-                                        backgroundColor: Colors.white,
-                                        child: CircleAvatar(
-                                          radius: 18,
-                                          backgroundImage: NetworkImage(
-                                              'https://cdn.pixabay.com/photo/2021/01/30/15/14/akita-5964180_1280.jpg'),
-                                        )),
-                                  ),
-                                  Positioned(
-                                    left: 20,
-                                    child: CircleAvatar(
-                                        backgroundColor: Colors.white,
-                                        child: CircleAvatar(
-                                          radius: 18,
-                                          backgroundImage: NetworkImage(
-                                              'https://cdn.pixabay.com/photo/2021/01/30/15/14/akita-5964180_1280.jpg'),
-                                        )),
-                                  ),
-                                  CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      child: CircleAvatar(
-                                        radius: 18,
-                                        backgroundImage: NetworkImage(
-                                            'https://cdn.pixabay.com/photo/2021/01/30/15/14/akita-5964180_1280.jpg'),
-                                      )),
-                                ],
-                              ),
-                            ),
-                            Flexible(
-                              child: Text(
-                                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: true),
-                            ),
-                            FlatButton(
-                                onPressed: () {},
-                                color: Colors.white,
-                                minWidth: 50,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Text("More"))
-                          ],
-                        )
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),
