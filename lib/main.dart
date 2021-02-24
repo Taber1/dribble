@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:ui' as ui;
 import 'package:dribble/PostScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -353,10 +353,19 @@ void showToast({
 class Favourite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Icon(
-      Icons.favorite,
-      size: 50,
-    );
+    return ShaderMask(
+        blendMode: BlendMode.srcIn,
+        shaderCallback: (Rect bounds) {
+          return LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.purple, Colors.pink, Colors.orange])
+              .createShader(bounds);
+        },
+        child: Icon(
+          Icons.favorite,
+          size: 50,
+        ));
   }
 }
 
@@ -422,7 +431,8 @@ class PostsBox extends StatelessWidget {
               child: Row(
                 children: [
                   CircleAvatar(
-                    backgroundColor: Colors.white,
+                    backgroundImage: NetworkImage(
+                        'https://cdn.pixabay.com/photo/2021/01/30/15/14/akita-5964180_1280.jpg'),
                   ),
                   SizedBox(
                     width: 5,
