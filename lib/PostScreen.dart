@@ -9,17 +9,13 @@ class PostScreen extends StatefulWidget {
   _PostScreenState createState() => _PostScreenState();
 }
 
-class _PostScreenState extends State<PostScreen>
-    with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Duration _duration = Duration(milliseconds: 500);
-  Tween<Offset> _tween = Tween(begin: Offset(0, 1), end: Offset(0, 0));
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(vsync: this, duration: _duration);
-  }
+class _PostScreenState extends State<PostScreen> {
+  static const double minExtent = 0.25;
+  static const double maxExtent = 0.9;
+  bool isExpanded = false;
+  double initialExtent = minExtent;
+  BuildContext draggableSheetContext;
+  IconData icon = Icons.arrow_drop_up;
 
   @override
   Widget build(BuildContext context) {
@@ -171,63 +167,93 @@ class _PostScreenState extends State<PostScreen>
                 ],
               ),
             ),
-            DraggableScrollableActuator(
-              child: DraggableScrollableSheet(
-                  key: Key(0.25.toString()),
-                  initialChildSize: 0.25,
-                  minChildSize: 0.25,
-                  maxChildSize: 0.9,
-                  builder: (BuildContext context,
-                      ScrollController scrollController) {
-                    return Container(
-                      decoration: BoxDecoration(
-                          color: Colors.greenAccent,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20))),
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: 15,
-                          controller: scrollController,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                    'https://cdn.pixabay.com/photo/2021/01/30/15/14/akita-5964180_1280.jpg'),
-                              ),
-                              title: Text("Person's Name"),
-                              subtitle: Text("Comment to Post"),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  FlatButton(
-                                      minWidth: 50,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30)),
-                                      color: Colors.grey[300],
-                                      onPressed: () {},
-                                      child: Text("Reply")),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  FlatButton(
-                                      minWidth: 20,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(60)),
-                                      color: Colors.grey[300],
-                                      onPressed: () {},
-                                      child: Icon(Icons.favorite))
-                                ],
-                              ),
-                            );
-                          }),
-                    );
-                  }),
-            ),
+            _commentBody()
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _commentBody() {
+    return DraggableScrollableActuator(
+      child: DraggableScrollableSheet(
+        key: Key(initialExtent.toString()),
+        minChildSize: minExtent,
+        maxChildSize: maxExtent,
+        initialChildSize: initialExtent,
+        builder: _draggableScrollableSheetBuilder,
+      ),
+    );
+  }
+
+  void _toggleDraggableScrollableSheet() {
+    if (draggableSheetContext != null) {
+      setState(() {
+        initialExtent = isExpanded ? minExtent : maxExtent;
+        isExpanded = !isExpanded;
+        icon = isExpanded ? Icons.arrow_drop_down : Icons.arrow_drop_up;
+      });
+      DraggableScrollableActuator.reset(draggableSheetContext);
+    }
+  }
+
+  Widget _draggableScrollableSheetBuilder(
+    BuildContext context,
+    ScrollController scrollController,
+  ) {
+    draggableSheetContext = context;
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+      child: Column(
+        children: [
+          InkWell(
+            onTap: () {
+              _toggleDraggableScrollableSheet();
+            },
+            child: Icon(icon),
+          ),
+          Expanded(
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: 15,
+                controller: scrollController,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          'https://cdn.pixabay.com/photo/2021/01/30/15/14/akita-5964180_1280.jpg'),
+                    ),
+                    title: Text("Person's Name"),
+                    subtitle: Text("Comment to Post"),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        FlatButton(
+                            minWidth: 50,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            color: Colors.grey[300],
+                            onPressed: () {},
+                            child: Text("Reply")),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        FlatButton(
+                            minWidth: 20,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(60)),
+                            color: Colors.grey[300],
+                            onPressed: () {},
+                            child: Icon(Icons.favorite))
+                      ],
+                    ),
+                  );
+                }),
+          ),
+        ],
       ),
     );
   }
