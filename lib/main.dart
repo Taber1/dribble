@@ -353,19 +353,29 @@ void showToast({
 class Favourite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ShaderMask(
-        blendMode: BlendMode.srcIn,
-        shaderCallback: (Rect bounds) {
-          return LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.purple, Colors.pink, Colors.orange])
-              .createShader(bounds);
-        },
-        child: Icon(
-          Icons.favorite,
-          size: 50,
-        ));
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Icon(
+          Icons.favorite_border_outlined,
+          size: 100,
+          color: Colors.white,
+        ),
+        ShaderMask(
+            blendMode: BlendMode.srcIn,
+            shaderCallback: (Rect bounds) {
+              return LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.purple, Colors.pink, Colors.orange])
+                  .createShader(bounds);
+            },
+            child: Icon(
+              Icons.favorite,
+              size: 50,
+            )),
+      ],
+    );
   }
 }
 
