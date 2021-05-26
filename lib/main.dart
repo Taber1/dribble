@@ -271,14 +271,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialPageRoute(
                               builder: (context) => PostScreen(
                                     imgUrl:
-                                        "https://cdn.pixabay.com/photo/2021/01/27/07/19/book-5953965__340.jpg",
+                                        "https://cdn.pixabay.com/photo/2020/05/05/16/54/wisteria-5133949__340.jpg",
                                   ))),
                       child: Align(
                         heightFactor: 0.9,
                         alignment: Alignment.topCenter,
                         child: PostsBox(
                           imgUrl:
-                              "https://cdn.pixabay.com/photo/2021/01/27/07/19/book-5953965__340.jpg",
+                              "https://cdn.pixabay.com/photo/2020/05/05/16/54/wisteria-5133949__340.jpg",
                         ),
                       ),
                     );

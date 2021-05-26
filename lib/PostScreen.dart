@@ -3,7 +3,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PostScreen extends StatefulWidget {
-  String imgUrl;
+  final String imgUrl;
   PostScreen({this.imgUrl});
 
   @override
@@ -54,7 +54,7 @@ class _PostScreenState extends State<PostScreen> {
                                 borderRadius: BorderRadius.circular(30),
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: NetworkImage("${widget.imgUrl}"))),
+                                    image: NetworkImage(widget.imgUrl))),
                           )),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
